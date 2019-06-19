@@ -1,0 +1,27 @@
+import numpy       as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+from FLEXtopo import FLEXtopo
+
+
+forcing=np.genfromtxt('wark_data/forcingWark.txt',  dtype=float, autostrip=True)
+
+                  #      Imax Ce Sumax beta Pmax    Kf  
+ParPlateau   = np.array([7.74, 0.50, 18.53, 0.88, 2.45, 0.88])   
+                  #      Imax Ce Sumax beta D     Kf  
+ParHillslope = np.array([6.98, 0.50, 30.18, 0.92, 0.02,0.53])
+                  #      Imax Ce Sumax beta Cmax     Kf  
+ParWetland   = np.array([5.21, 0.50, 264.74, 0.60, 3.52, 0.59])
+              # Ks Tlag
+ParCatchment = np.array([0.0276, 2.11])
+
+#landscape percentages
+landscape_per=np.array([... ... ...])
+
+
+Qm = FLEXtopo(ParPlateau, ParHillslope, ParWetland, ParCatchment, forcing[:,3:6], landscape_per)
+Qo = forcing[:,3]
+
+plt.plot(range(0,len(Qo)),Qo)
+plt.plot(range(0,len(Qm)),Qm)
+plt.show()

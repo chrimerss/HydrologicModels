@@ -1,0 +1,60 @@
+import numpy       as np
+import matplotlib.pyplot as plt
+from HBVMod import HBVMod
+
+forcing=np.genfromtxt('Forcing.txt',  dtype=float, autostrip=True)
+
+Sin= np.array([0,  100,  0,  5  ])
+
+forcing= forcing[:,3:6]
+
+A=np.genfromtxt('MC2.txt',  dtype=float, autostrip=True, delimiter=',')
+
+
+ind=np.argmax(A[:,8])
+OptPar=A[ind,0:8]
+
+plt.figure(1)
+Obj=HBVMod(OptPar,forcing,Sin, hydrograph='TRUE')
+
+plt.figure(2)
+plt.subplot(421)
+plt.plot(A[:,0],A[:,8],'.')
+plt.xlabel('I_{max}')
+plt.ylabel('N (-)')
+
+plt.subplot(422)
+plt.plot(A[:,1],A[:,8],'.')
+plt.xlabel('C_{e}')
+
+plt.subplot(423)
+plt.plot(A[:,2],A[:,8],'.')
+plt.xlabel('S_{u,max}')
+plt.ylabel('N (-)')
+
+plt.subplot(424)
+plt.plot(A[:,3],A[:,8],'.')
+plt.xlabel('\beta')
+plt.xlim(.5, 4)
+
+plt.subplot(425)
+plt.plot(A[:,4],A[:,8],'.')
+plt.xlabel('P_{max}')
+plt.ylabel('N (-)')
+plt.xlim(0, .3)
+
+plt.subplot(426)
+plt.plot(A[:,5],A[:,8],'.')
+plt.xlabel('T_{lag}')
+
+plt.subplot(427)
+plt.plot(A[:,6],A[:,8],'.')
+plt.xlabel('K_{f}')
+plt.ylabel('N (-)')
+
+plt.subplot(428)
+plt.plot(A[:,7],A[:,8],'.')
+plt.xlabel('K_{s}')
+
+plt.show()
+

@@ -1,0 +1,34 @@
+clear all
+
+forcing=load('forcing.txt');
+          %      Imax Ce Sumax beta Pmax   Tlag   Kf  Ks
+ParRange.minn = [0   .2  40    .5   .001   0     .01  .0001];
+ParRange.maxn = [8    1  800   4    .3     10    .1   .01];
+Sin= [0  100  0  5  ];
+
+Extra.forcing=forcing(:,4:6);
+
+Extra.Sin=Sin;
+
+
+% GLUE
+A=[];
+nmax=5000;
+h = waitbar(0,'Please wait...');
+for n=1:nmax
+Rnum=rand(1,8);
+Par=ParRange.minn+(ParRange.maxn-ParRange.minn).*Rnum;
+Obj = HBVMod(Par,Extra);
+if Obj>.6
+    A=[A;[Par Obj]];
+end
+waitbar(n/nmax)
+end
+close(h)
+save('MC.txt','A','-ascii');
+
+[Opt,ind]=max(A(:,9));
+OptPar=A(ind(1),1:8);
+
+Obj=HBVModp(OptPar,Extra);
+
