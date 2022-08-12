@@ -8,4 +8,8 @@ We differentiate hydrologic model with land surface model by the primary purpose
 
 # Land surface models
 
-## [Urban land surface model](https://supy.readthedocs.io/en/latest/index.html)
+## Urban land surface model
+
+|Name|publication|repo|
+|----|-----------|----|
+|SuPy|[A Python-enhanced urban land surface model SuPy (SUEWS in Python, v2019.2): development, deployment and demonstration](https://gmd.copernicus.org/articles/12/2781/2019/)|https://supy.readthedocs.io/en/latest/index.html|
